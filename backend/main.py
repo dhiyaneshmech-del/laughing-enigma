@@ -46,18 +46,18 @@ async def send_telegram_notification(entry: SurveyEntry):
         return
 
     message = (
-        f"🗳️ *New Survey Entry*\n\n"
-        f"👤 *Name:* {entry.name}\n"
-        f"📧 *Email:* {entry.email}\n"
-        f"🏛️ *Favorite Party:* {entry.party}\n"
-        f"📈 *Win Probability:* {entry.probability}%"
+        f"🗳️ <b>New Survey Entry</b>\n\n"
+        f"👤 <b>Name:</b> {entry.name}\n"
+        f"📧 <b>Email:</b> {entry.email}\n"
+        f"🏛️ <b>Favorite Party:</b> {entry.party}\n"
+        f"📈 <b>Win Probability:</b> {entry.probability}%"
     )
 
     url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
     payload = {
         "chat_id": chat_id,
         "text": message,
-        "parse_mode": "Markdown"
+        "parse_mode": "HTML"
     }
 
     async with httpx.AsyncClient() as client:
