@@ -39,8 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
         setLoading(true);
 
         try {
-            // Note: Since the backend is serving the frontend, the relative path /api/submit-survey works perfectly.
-            const response = await fetch('/api/submit-survey', {
+            // Send request to the specific Render backend URL
+            const response = await fetch('https://laughing-enigma-2.onrender.com/api/submit-survey', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
