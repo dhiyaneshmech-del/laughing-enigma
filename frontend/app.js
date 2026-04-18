@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // Send request to the specific Render backend URL
-            const response = await fetch('https://laughing-enigma-2.onrender.com/api/submit-survey', {
+            const response = await fetch('https://laughing-enigma-3.onrender.com/api/submit-survey', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
