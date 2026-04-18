@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Insights Survey</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <main class="container">
+        <header>
+            <h1>Voter Insights Survey</h1>
+            <p>Your opinion matters. Help us predict the future of the nation.</p>
+        </header>
+
+        <form id="surveyForm" class="glass-panel">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="John Doe" required autocomplete="name">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="john@example.com" required autocomplete="email">
+            </div>
+
+            <div class="form-group">
+                <label for="party">Favorite Political Party</label>
+                <div class="custom-select">
+                    <select id="party" name="party" required>
+                        <option value="" disabled selected>Select a party...</option>
+                        <option value="TVK">TVK</option>
+                        <option value="ADMK">ADMK</option>
+                        <option value="DMK">DMK</option>
+                        <option value="NTP">NTP</option>
+                        <option value="Other">Other / Independent</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="probability">Estimated Win Probability (<span id="probabilityValue">50</span>%)</label>
+                <input type="range" id="probability" name="probability" min="0" max="100" value="50" required>
+                <div class="range-labels">
+                    <span>0%</span>
+                    <span>100%</span>
+                </div>
+            </div>
+
+            <button type="submit" id="submitBtn">
+                <span class="btn-text">Submit Survey</span>
+                <div class="spinner hidden"></div>
+            </button>
+
+            <div id="successMessage" class="success-message hidden">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <p>Thank you for your response!</p>
+            </div>
+            
+            <div id="errorMessage" class="error-message hidden">
+                <p></p>
+            </div>
+        </form>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
