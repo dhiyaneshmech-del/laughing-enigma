@@ -25,12 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = {
             name: document.getElementById('name').value.trim(),
             email: document.getElementById('email').value.trim(),
+            constituency: document.getElementById('constituency').value.trim(),
             party: document.getElementById('party').value,
             probability: parseInt(probabilityInput.value, 10)
         };
 
         // Basic validation
-        if (!formData.name || !formData.email || !formData.party) {
+        if (!formData.name || !formData.email || !formData.constituency || !formData.party) {
             showError('Please fill in all required fields.');
             return;
         }

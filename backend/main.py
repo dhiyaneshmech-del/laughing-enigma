@@ -18,6 +18,7 @@ DB_FILE = os.path.join(BASE_DIR, "survey.db")
 class SurveyEntry(BaseModel):
     name: str = Field(..., min_length=1, max_length=100)
     email: EmailStr
+    constituency: str = Field(..., min_length=1, max_length=100)
     party: str = Field(..., min_length=1, max_length=100)
     probability: int = Field(..., ge=0, le=100)
 
@@ -29,11 +30,16 @@ def init_db():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             email TEXT NOT NULL,
+            constituency TEXT NOT NULL DEFAULT 'Unknown',
             party TEXT NOT NULL,
             probability INTEGER NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     """)
+    try:
+        cursor.execute("ALTER TABLE surveys ADD COLUMN constituency TEXT NOT NULL DEFAULT 'Unknown'")
+    except sqlite3.OperationalError:
+        pass # Column might already exist
     conn.commit()
     conn.close()
 
@@ -49,6 +55,7 @@ async def send_telegram_notification(entry: SurveyEntry):
         f"🗳️ <b>New Survey Entry</b>\n\n"
         f"👤 <b>Name:</b> {entry.name}\n"
         f"📧 <b>Email:</b> {entry.email}\n"
+        f"📍 <b>Constituency:</b> {entry.constituency}\n"
         f"🏛️ <b>Favorite Party:</b> {entry.party}\n"
         f"📈 <b>Win Probability:</b> {entry.probability}%"
     )
@@ -89,8 +96,8 @@ async def submit_survey(entry: SurveyEntry, background_tasks: BackgroundTasks):
         conn = sqlite3.connect(DB_FILE)
         cursor = conn.cursor()
         cursor.execute(
-            "INSERT INTO surveys (name, email, party, probability) VALUES (?, ?, ?, ?)",
-            (entry.name, entry.email, entry.party, entry.probability)
+            "INSERT INTO surveys (name, email, constituency, party, probability) VALUES (?, ?, ?, ?, ?)",
+            (entry.name, entry.email, entry.constituency, entry.party, entry.probability)
         )
         conn.commit()
         conn.close()
